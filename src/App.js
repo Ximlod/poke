@@ -9,18 +9,18 @@ import React, { useState } from 'react';
 function App() {
   const [Mostrar, setMostrar] = useState(false)
   const [texto,setTexto] = useState({
-    nombreNumero:'?limit=12&offset=0',
+    nombreNumero:'',
   });
 
-  const cambio = (event) => {    
-    setTexto ({ [event.target.name] : event.target.value,
+  const cambio = (event) => {   
+    setTexto ({    
+      [event.target.name] : event.target.value.trim(),
     })
-
-  }
+  };
 
   const enviar = (event) => {
     event.preventDefault();
-  }
+  };
 
   return (
     <>
@@ -42,8 +42,8 @@ function App() {
               </ul> 
               {Mostrar && (
                 <form className="form-inline" onSubmit = {enviar}>
-                  <input type="text" name="nombreNumero" value = {texto.nombreNumero} onChange ={cambio} placeholder="Search"><span class="glyphicon glyphicon-search"></span></input>
-                  <button className="btn btn-outline-success" type="submit"></button>
+                  <input type="text" name="nombreNumero" value = {texto.nombreNumero} onChange ={cambio} placeholder="Nombre o número"></input>
+                  <button className="btn btn-outline-success" type="submit"><i className="bi bi-search"></i></button>
               </form>  
               )}
                        
@@ -56,7 +56,7 @@ function App() {
             <Inicio/>
           </Route>
           <Route exact path="/Pokedex">
-            <Pokedex nombreNumero={`${texto.nombreNumero}`}/>
+            <Pokedex nombreNumero={texto.nombreNumero}/>
           </Route>
           <Route exact path="/Regiones">
             <Regiones/>
@@ -71,3 +71,4 @@ function App() {
 }
 
 export default App;
+
